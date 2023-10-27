@@ -1,0 +1,9 @@
+{
+  "name": "Rizzler",
+  "version": "1.0",
+  "authors": ["Jeff Lu", "Jasmin Wu", "Franklin Ruan", "Olivia Ding"],
+  "description": "treat me like white tee, don't get me dirty",
+  "countryCodes": ["au"],
+  "platform": "JVM",
+  "programmingLang": "Kotlin"
+}

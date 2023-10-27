@@ -11,17 +11,17 @@ import dev.robocode.tankroyale.botapi.events.*;
 //
 // This bot moves around in a crazy pattern.
 // ------------------------------------------------------------------
-public class TestBot extends Bot {
+public class Rizzler extends Bot {
 
     boolean movingForward;
 
     // The main method starts our bot
     public static void main(String[] args) {
-        new TestBot().start();
+        new Rizzler().start();
     }
 
     // Constructor, which loads the bot config file
-    TestBot() {
+    Rizzler() {
         super(BotInfo.fromFile("Crazy.json"));
     }
 

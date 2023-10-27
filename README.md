@@ -32,7 +32,7 @@ java -jar robocode-tankroyale-gui-0.19.2.jar
 ## Building a bot and submitting to host
 - Ensure that you set compatibility mode to JDK 11. You'll need to produce a jar file in the final deliverable
 - Ensure that your bot includes a .json file with the same name as the jar. Example [here](./src/main/kotlin/org/example/BTreeBot.json). 
-- Ensure that you have a .sh file with the command that would execute the jar file. See example [here](./BTreeBot/BTreeBot.sh)
+- Ensure that you have a .sh file with the command that would execute the jar file. See example [here](Rizzler/Rizzler.sh)
 
 Full instructions for the JVM is available in the official docs: https://robocode-dev.github.io/tank-royale/tutorial/jvm/my-first-bot-for-jvm.html
 
