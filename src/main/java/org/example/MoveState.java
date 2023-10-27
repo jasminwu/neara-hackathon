@@ -57,7 +57,8 @@ public class MoveState extends State {
             // Radar and Movement direction are opposite directions
             // Consider setting direction such that it is accelerating/decelerating/rotating
             // so predicting is easier
-            context.setForward(40000);
+            context.setTurnRate(10);
+            context.setForward(1000);
         }
         if (peek) {
             context.rescan();
