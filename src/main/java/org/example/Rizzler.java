@@ -11,6 +11,7 @@ import dev.robocode.tankroyale.botapi.events.*;
 public class Rizzler extends Bot {
 
     private State state;
+    private List<ScannedBotEvent> scans;
 
     public boolean movingForward;
 
@@ -75,11 +76,22 @@ public class Rizzler extends Bot {
 
     }
 
-    // UTILITY METHODS //////////////////////////////////
+    // GETTERS AND SETTERS //////////////////////////////
 
     public void setState(State state) {
         this.state = state;
     }
+
+    public void addScan(ScannedBotEvent e) {
+        this.scans.add(e);
+    }
+
+    public void getScans() {
+        return this.scans;
+    }
+
+    // UTILITY METHODS //////////////////////////////////
+
 
     // ReverseDirection: Switch from ahead to back & vice versa
     public void reverseDirection() {
