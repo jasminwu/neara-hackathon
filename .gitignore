@@ -41,8 +41,8 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-BTreeBot/*.jar
-BTreeBot/*.json
+#BTreeBot/*.jar
+#BTreeBot/*.json
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
