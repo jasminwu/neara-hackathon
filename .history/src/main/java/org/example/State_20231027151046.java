@@ -26,6 +26,7 @@ public abstract class State {
                 context.turnRight(180);
             }
         }
+
     }
 
     private boolean isSpaceLeft() {

@@ -8,7 +8,7 @@ import dev.robocode.tankroyale.botapi.events.*;
 // ------------------------------------------------------------------
 // This is very high quality coding
 // ------------------------------------------------------------------
-public class Rizzler extends Bot {
+public class Rizzler extends BaseBot {
 
     private State state;
 

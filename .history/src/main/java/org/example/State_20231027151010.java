@@ -25,7 +25,9 @@ public abstract class State {
             if (willCollide(width, height)) {
                 context.turnRight(180);
             }
+
         }
+
     }
 
     private boolean isSpaceLeft() {
@@ -59,7 +61,7 @@ public abstract class State {
     }
 
     private boolean goingDown(double dir) {
-        return 45 + 180 <= dir && dir < 360 - 45;
+        return 45 + 180 <= dir && dir < 315;
     }
 
     private double calculateDistanceSquared(double x, double y, double x2, double y2) {

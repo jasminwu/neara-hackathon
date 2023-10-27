@@ -25,7 +25,9 @@ public abstract class State {
             if (willCollide(width, height)) {
                 context.turnRight(180);
             }
+
         }
+
     }
 
     private boolean isSpaceLeft() {
@@ -40,26 +42,26 @@ public abstract class State {
         double dir = context.getDirection();
 
         if (goingUp(dir)) {
-            return calculateDistanceSquared(x, y, x, 0) < MAX_DISTANCE_WITHOUT_COLLIDE;
+            return calculateDistanceSquared(x, y, x, height) < MAX_DISTANCE_WITHOUT_COLLIDE;
         } else if (goingLeft(dir)) {
             return calculateDistanceSquared(x, y, 0, y) < MAX_DISTANCE_WITHOUT_COLLIDE;
         } else if (goingDown(dir)) {
-            return calculateDistanceSquared(x, y, x, height) < MAX_DISTANCE_WITHOUT_COLLIDE;
+            return calculateDistanceSquared(x, y, x, 0) < MAX_DISTANCE_WITHOUT_COLLIDE;
         } else {
             return calculateDistanceSquared(x, y, width, y) < MAX_DISTANCE_WITHOUT_COLLIDE;
         }
     }
 
     private boolean goingUp(double dir) {
-        return 45 <= dir && dir < 45 + 90;
+        return 45 <= dir && dir < 135;
     }
 
     private boolean goingLeft(double dir) {
-        return 45 + 90 <= dir && dir < 45 + 180;
+        return 135 < dir && dir < 225;
     }
 
     private boolean goingDown(double dir) {
-        return 45 + 180 <= dir && dir < 360 - 45;
+        return 225 < dir && dir < 315;
     }
 
     private double calculateDistanceSquared(double x, double y, double x2, double y2) {

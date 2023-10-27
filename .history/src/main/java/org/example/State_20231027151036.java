@@ -25,7 +25,9 @@ public abstract class State {
             if (willCollide(width, height)) {
                 context.turnRight(180);
             }
+
         }
+
     }
 
     private boolean isSpaceLeft() {

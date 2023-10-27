@@ -29,11 +29,11 @@ public class Rizzler extends Bot {
     // Called when a new round is started -> initialize and do some movement
     public void run() {
         // Set colors
-        setBodyColor(Color.fromString("#00C800")); // lime
+        setBodyColor(Color.fromString("#00C800"));   // lime
         setTurretColor(Color.fromString("#009632")); // green
-        setRadarColor(Color.fromString("#006464")); // dark cyan
+        setRadarColor(Color.fromString("#006464"));  // dark cyan
         setBulletColor(Color.fromString("#FFFF64")); // yellow
-        setScanColor(Color.fromString("#FFC8C8")); // light red
+        setScanColor(Color.fromString("#FFC8C8"));   // light red
 
         // Loop while as long as the bot is running
         while (isRunning()) {
@@ -51,6 +51,7 @@ public class Rizzler extends Bot {
         state.onHitWall(e);
     }
 
+    
     // We scanned another bot -> fire!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
@@ -67,12 +68,12 @@ public class Rizzler extends Bot {
     public void onBulletFired(BulletFiredEvent e) {
         state.onBulletFired(e);
     }
-
+    
     // GAME START AND END
 
     @Override
     public void onWonRound(WonRoundEvent e) {
-
+        
     }
 
     // UTILITY METHODS //////////////////////////////////
@@ -91,5 +92,5 @@ public class Rizzler extends Bot {
             movingForward = true;
         }
     }
-
+    
 }
