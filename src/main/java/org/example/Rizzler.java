@@ -2,6 +2,8 @@ package org.example;
 
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
+import java.util.List;
+import java.util.ArrayList;
 
 // ------------------------------------------------------------------
 // Rizzler
@@ -23,8 +25,9 @@ public class Rizzler extends Bot {
     // Constructor, which loads the bot config file
     Rizzler() {
         super(BotInfo.fromFile("Rizzler.json"));
-        // TODO: CHANGE THIS
+        // TODO: DEFAULT STATEs
         this.state = new CrazyState(this);
+        this.scans = new ArrayList<ScannedBotEvent>();
     }
 
     // Called when a new round is started -> initialize and do some movement
@@ -36,10 +39,13 @@ public class Rizzler extends Bot {
         setBulletColor(Color.fromString("#FFFF64")); // yellow
         setScanColor(Color.fromString("#FFC8C8"));   // light red
 
+        // TODO: DEFAULT STATE
+        setState(new CrazyState(this));
+
         // Loop while as long as the bot is running
+        state.onRun();
         while (isRunning()) {
             state.whileRunning();
-            go();
         }
     }
 
@@ -68,6 +74,11 @@ public class Rizzler extends Bot {
     public void onBulletFired(BulletFiredEvent e) {
         state.onBulletFired(e);
     }
+
+    @Override
+    public void onHitByBullet(HitByBulletEvent e) {
+        state.onHitByBullet(e);
+    }
     
     // GAME START AND END
 
@@ -86,7 +97,7 @@ public class Rizzler extends Bot {
         this.scans.add(e);
     }
 
-    public void getScans() {
+    public List<ScannedBotEvent> getScans() {
         return this.scans;
     }
 
