@@ -10,7 +10,7 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass.set("org.example.BTreeBotKt")
+    mainClass.set("org.example.RizzlerKt")
 }
 
 repositories {

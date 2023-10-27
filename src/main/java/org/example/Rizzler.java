@@ -22,7 +22,7 @@ public class Rizzler extends Bot {
 
     // Constructor, which loads the bot config file
     Rizzler() {
-        super(BotInfo.fromFile("Crazy.json"));
+        super(BotInfo.fromFile("Rizzler.json"));
     }
 
     // Called when a new round is started -> initialize and do some movement
