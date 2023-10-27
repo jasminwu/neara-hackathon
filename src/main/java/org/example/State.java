@@ -12,10 +12,13 @@ public abstract class State {
     }
 
     // Events to listen for
+    public void onRun() {
+
+    }
     public void whileRunning() {
+        System.out.print("hi");
         
     }
-
     public void onHitWall(HitWallEvent e) {
 
     }
