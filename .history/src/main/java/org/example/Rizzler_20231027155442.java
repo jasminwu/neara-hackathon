@@ -3,8 +3,6 @@ package org.example;
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 
-import java.util.List;
-
 // ------------------------------------------------------------------
 // Rizzler
 // ------------------------------------------------------------------
@@ -138,7 +136,7 @@ public class Rizzler extends Bot {
         this.scans.add(e);
     }
 
-    public List<ScannedBotEvent> getScans() {
+    public void getScans() {
         return this.scans;
     }
 

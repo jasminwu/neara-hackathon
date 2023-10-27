@@ -138,7 +138,7 @@ public class Rizzler extends Bot {
         this.scans.add(e);
     }
 
-    public List<ScannedBotEvent> getScans() {
+    public void getScans() {
         return this.scans;
     }
 
