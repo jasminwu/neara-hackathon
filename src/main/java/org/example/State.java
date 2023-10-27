@@ -14,8 +14,9 @@ public abstract class State {
     // Events to listen for
     public void whileRunning() {
         checkForWallCollision();
-
     }
+
+    private static final double TURN_DEGREES = 90;
 
     private void checkForWallCollision() {
         if (isSpaceLeft()) {
@@ -23,7 +24,7 @@ public abstract class State {
             int height = context.getArenaHeight();
 
             if (willCollide(width, height)) {
-                context.turnRight(180);
+                context.turnRight(TURN_DEGREES);
             }
         }
     }
