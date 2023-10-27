@@ -3,8 +3,6 @@ package org.example;
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 
-import org.example.CrazyState;
-
 import java.util.List;
 
 // ------------------------------------------------------------------
@@ -13,8 +11,6 @@ import java.util.List;
 // This is very high quality coding
 // ------------------------------------------------------------------
 public class Rizzler extends Bot {
-    public static final double TURN_DEGREES = 90;
-    public static final double MAX_DISTANCE_WITHOUT_COLLIDE = 324;
 
     private State state;
     private List<ScannedBotEvent> scans;
@@ -42,20 +38,13 @@ public class Rizzler extends Bot {
         setBulletColor(Color.fromString("#FFFF64")); // yellow
         setScanColor(Color.fromString("#FFC8C8")); // light red
 
-        // Loop while as long as the bot is running
         while (isRunning()) {
-            checkForWallCollision();
-            state.whileRunning();
-            go();
-        }
-    }
-
-    private void checkForWallCollision() {
-        if (isSpaceLeft()) {
-
-            if (willCollide(getArenaWidth(), getArenaHeight())) {
-                setTurnRight(TURN_DEGREES);
+            if (!isSpaceLeft() || willCollide(getArenaWidth(), getArenaHeight())) {
+                setTurnRight(90);
             }
+            state.whileRunning();
+
+            go();
         }
     }
 

@@ -11,7 +11,7 @@ public class CrazyState extends State {
 
     @Override
     public void whileRunning() {
-        context.setForward(200);
+        context.setForward(40000);
         context.movingForward = true;
 
         context.setTurnRight(90);
@@ -20,6 +20,7 @@ public class CrazyState extends State {
         context.waitFor(new TurnCompleteCondition(context));
         context.setTurnRight(180);
         context.waitFor(new TurnCompleteCondition(context));
+
     }
 
     @Override
