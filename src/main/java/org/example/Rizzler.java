@@ -75,6 +75,10 @@ public class Rizzler extends Bot {
 
     // UTILITY METHODS //////////////////////////////////
 
+    public void setState(State state) {
+        this.state = state;
+    }
+
     // ReverseDirection: Switch from ahead to back & vice versa
     public void reverseDirection() {
         if (movingForward) {
