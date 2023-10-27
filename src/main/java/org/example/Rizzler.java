@@ -3,6 +3,8 @@ package org.example;
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 
+import org.example.CrazyState;
+
 import java.util.List;
 
 // ------------------------------------------------------------------
@@ -12,7 +14,7 @@ import java.util.List;
 // ------------------------------------------------------------------
 public class Rizzler extends Bot {
     public static final double TURN_DEGREES = 90;
-    public static final double MAX_DISTANCE_WITHOUT_COLLIDE = 350;
+    public static final double MAX_DISTANCE_WITHOUT_COLLIDE = 324;
 
     private State state;
     private List<ScannedBotEvent> scans;
@@ -52,7 +54,7 @@ public class Rizzler extends Bot {
         if (isSpaceLeft()) {
 
             if (willCollide(getArenaWidth(), getArenaHeight())) {
-                turnLeft(TURN_DEGREES);
+                setTurnRight(TURN_DEGREES);
             }
         }
     }
@@ -65,16 +67,40 @@ public class Rizzler extends Bot {
         double x = getX();
         double y = getY();
         double dir = getDirection();
+        double relevantX, relevantY;
 
         if (goingUp(dir)) {
-            return calculateDistanceSquared(x, y, x, 0) < MAX_DISTANCE_WITHOUT_COLLIDE;
+            double angle = Math.abs(90 - dir);
+            relevantY = 0;
+            relevantX = calculateRelevantX(x, angle);
+
         } else if (goingLeft(dir)) {
-            return calculateDistanceSquared(x, y, 0, y) < MAX_DISTANCE_WITHOUT_COLLIDE;
+            double angle = Math.abs(180 - dir);
+            relevantX = 0;
+            relevantY = calculateRelevantY(y, angle);
+
         } else if (goingDown(dir)) {
-            return calculateDistanceSquared(x, y, x, height) < MAX_DISTANCE_WITHOUT_COLLIDE;
+            double angle = Math.abs(90 + 180 - dir);
+            relevantY = height;
+            relevantX = calculateRelevantX(x, angle);
+
         } else {
-            return calculateDistanceSquared(x, y, width, y) < MAX_DISTANCE_WITHOUT_COLLIDE;
+            double angle = Math.min(dir, 360 - dir);
+            relevantX = width;
+            relevantY = calculateRelevantY(y, angle);
         }
+
+        return distanceTo(relevantX, relevantY) < 18;
+    }
+
+    private double calculateRelevantX(double x, double angle) {
+        double extraX = distanceTo(x, 0) / Math.cos(angle);
+        return (angle == Math.abs(90 - getDirection())) ? x + extraX : x - extraX;
+    }
+
+    private double calculateRelevantY(double y, double angle) {
+        double extraY = distanceTo(0, y) / Math.cos(angle);
+        return (angle == Math.abs(180 - getDirection())) ? y + extraY : y - extraY;
     }
 
     private boolean goingUp(double dir) {
@@ -87,10 +113,6 @@ public class Rizzler extends Bot {
 
     private boolean goingDown(double dir) {
         return 45 + 180 <= dir && dir < 360 - 45;
-    }
-
-    private double calculateDistanceSquared(double x, double y, double x2, double y2) {
-        return Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2);
     }
 
     // Events
