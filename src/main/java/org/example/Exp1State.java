@@ -1,6 +1,5 @@
 package org.example;
 
-import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 
 public class Exp1State extends State {
@@ -10,10 +9,13 @@ public class Exp1State extends State {
 
     @Override
     public void whileRunning() {
-        if (context.getDistanceRemaining() == 0) {
-            context.setTurnRight(90);
-            context.setForward(20);
-        }
+        System.out.print("love yourself");
+        context.go();
+    }
+
+    @Override
+    public void onHitByBullet(HitByBulletEvent e) {
+        context.setState(new PredictionShotState(context));
     }
     
 }

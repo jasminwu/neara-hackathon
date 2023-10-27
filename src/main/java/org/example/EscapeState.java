@@ -28,9 +28,10 @@ public class EscapeState extends State {
         double xOther = e.getX();
         double yOther = e.getY();
         double distance = Math.sqrt(Math.pow(yOther - ySelf, 2) + Math.pow(yOther - ySelf, 2));
-        if (distance < 0.1 * Math.min(context.getArenaWidth, context.getArenaHeight)) {
+        if (distance < 0.3 * Math.min(context.getArenaWidth(), context.getArenaHeight())) {
             // CALL JASMIN"S CODE TO CHECK IF WALL BEHIND
             // IF NOT then reerse
+            // IF YES< THEN EXECUTE THE CODE IN REVERSE TO AVOID THE WALL
             context.reverseDirection();
             // If the bot is stopped, fire at it. Also detect how far it is
             context.fire(1);

@@ -11,6 +11,7 @@ public class CrazyState extends State {
 
     @Override
     public void whileRunning() {
+        System.out.print("im crazy");
         // Tell the game we will want to move ahead 40000 -- some large number
         context.setForward(40000);
         context.movingForward = true;
@@ -34,6 +35,7 @@ public class CrazyState extends State {
         // ... and wait for that turn to finish.
         context.waitFor(new TurnCompleteCondition(context));
         // then back to the top to do it all again.
+        context.go();
     }
 
     @Override
@@ -53,6 +55,11 @@ public class CrazyState extends State {
     @Override
     public void onHitWall(HitWallEvent e) {
         context.reverseDirection();
+    }
+
+    @Override
+    public void onHitByBullet(HitByBulletEvent e) {
+        context.setState(new PredictionShotState(context));
     }
 
     // Condition that is triggered when the turning is complete
