@@ -38,6 +38,7 @@ public class Rizzler extends Bot {
         // Loop while as long as the bot is running
         while (isRunning()) {
             state.whileRunning();
+            go();
         }
     }
 
@@ -67,7 +68,8 @@ public class Rizzler extends Bot {
         state.onBulletFired(e);
     }
     
-    // FUN VICTORY DANCE!!
+    // GAME START AND END
+
     @Override
     public void onWonRound(WonRoundEvent e) {
         
