@@ -15,10 +15,19 @@ public class CrazyState extends State {
         context.movingForward = true;
 
         context.setTurnRight(90);
+        if (willCollide()) {
+            context.setTurnRight(180);
+        }
         context.waitFor(new TurnCompleteCondition(context));
         context.setTurnLeft(180);
+        if (willCollide()) {
+            context.setTurnRight(180);
+        }
         context.waitFor(new TurnCompleteCondition(context));
         context.setTurnRight(180);
+        if (willCollide()) {
+            context.setTurnRight(180);
+        }
         context.waitFor(new TurnCompleteCondition(context));
 
     }
