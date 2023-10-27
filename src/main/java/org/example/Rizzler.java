@@ -25,7 +25,7 @@ public class Rizzler extends Bot {
     }
 
     // Constructor, which loads the bot config file
-    Rizzler() {
+    public Rizzler() {
         super(BotInfo.fromFile("Rizzler.json"));
         // TODO: CHANGE THIS
         this.state = new CrazyState(this);
@@ -50,11 +50,9 @@ public class Rizzler extends Bot {
 
     private void checkForWallCollision() {
         if (isSpaceLeft()) {
-            int width = getArenaWidth();
-            int height = getArenaHeight();
 
-            if (willCollide(width, height)) {
-                turnRight(TURN_DEGREES);
+            if (willCollide(getArenaWidth(), getArenaHeight())) {
+                turnLeft(TURN_DEGREES);
             }
         }
     }

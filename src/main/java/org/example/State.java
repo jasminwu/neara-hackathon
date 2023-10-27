@@ -1,6 +1,5 @@
 package org.example;
 
-import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 
 public abstract class State {

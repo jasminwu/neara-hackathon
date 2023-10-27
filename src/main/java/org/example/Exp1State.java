@@ -1,8 +1,5 @@
 package org.example;
 
-import dev.robocode.tankroyale.botapi.*;
-import dev.robocode.tankroyale.botapi.events.*;
-
 public class Exp1State extends State {
     public Exp1State(Rizzler context) {
         super(context);
@@ -15,5 +12,5 @@ public class Exp1State extends State {
             context.setForward(20);
         }
     }
-    
+
 }
