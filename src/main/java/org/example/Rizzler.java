@@ -12,6 +12,7 @@ import java.util.List;
 // ------------------------------------------------------------------
 public class Rizzler extends Bot {
     public static final double TURN_DEGREES = 90;
+    public static final double MAX_DISTANCE_WITHOUT_COLLIDE = 350;
 
     private State state;
     private List<ScannedBotEvent> scans;
@@ -61,8 +62,6 @@ public class Rizzler extends Bot {
     private boolean isSpaceLeft() {
         return getDistanceRemaining() > 0;
     }
-
-    private static final double MAX_DISTANCE_WITHOUT_COLLIDE = 324;
 
     private boolean willCollide(int width, int height) {
         double x = getX();
