@@ -19,9 +19,9 @@ public class PredictionShotState extends State {
     public PredictionShotState(Rizzler context) {
         super(context);
     }
-    
+
     // STATE INTERFACE
-    
+
     @Override
     public void whileRunning() {
         List<ScannedBotEvent> scans = context.getScans();
@@ -30,7 +30,7 @@ public class PredictionShotState extends State {
     @Override
     public void onScannedBot(ScannedBotEvent e) {
         context.addScan(e);
-        
+
         // DETERMINE FIRE POWER
 
         // predict the location of the scanned bot and then

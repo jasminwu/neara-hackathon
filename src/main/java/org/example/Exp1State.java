@@ -10,12 +10,11 @@ public class Exp1State extends State {
     @Override
     public void whileRunning() {
         System.out.print("love yourself");
-        context.go();
     }
 
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
         context.setState(new PredictionShotState(context));
     }
-    
+
 }
