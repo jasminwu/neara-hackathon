@@ -59,7 +59,7 @@ public class CrazyState extends State {
 
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
-        context.setState(new FutureSightState(context));
+        context.setState(new PredictionShotState(context));
     }
 
     // Condition that is triggered when the turning is complete
