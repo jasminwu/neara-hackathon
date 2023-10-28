@@ -6,6 +6,7 @@ import dev.robocode.tankroyale.botapi.events.*;
 public class RandomState extends State {
 
     boolean peek;
+
     public RandomState(Rizzler context) {
         super(context);
     }
@@ -16,7 +17,8 @@ public class RandomState extends State {
             context.reverseDirection();
         } else {
             peek = false;
-            // When rotating, you will autonamtically scan you prevent rescan by turning off peek
+            // When rotating, you will autonamtically scan you prevent rescan by turning off
+            // peek
             System.out.print("im Random");
             context.setTurnGunRight(400);
             // Tell the game we will want to move ahead 40000 -- some large number
@@ -35,7 +37,8 @@ public class RandomState extends State {
 
     @Override
     public void onHitBot(HitBotEvent e) {
-        // If we're moving into the other bot, scan and depending on the action, move in acertain direction
+        // If we're moving into the other bot, scan and depending on the action, move in
+        // acertain direction
         if (e.isRammed()) {
             context.rescan();
         }
@@ -44,7 +47,7 @@ public class RandomState extends State {
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
         // SET THE STATE TO PREDICTION SHOT STATE
-//        context.setState(new PredictionShotState(context));
+        // context.setState(new PredictionShotState(context));
         context.setTurnRate(5);
         context.reverseDirection();
     }
@@ -52,12 +55,12 @@ public class RandomState extends State {
     // We scanned another bot -> fire!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
-        
+
         Vector2D pos = new Vector2D(e.getX(), e.getY());
         Vector2D ori = new Vector2D(context.getX(), context.getY());
         double dist = pos.subtract(ori).magnitude();
-        
-        if (dist > 150) {
+
+        if (dist > 75 && dist < 300) {
             context.setState(new PredictionShotState(context));
             context.state.onScannedBot(e);
         } else {

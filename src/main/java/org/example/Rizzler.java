@@ -50,10 +50,6 @@ public class Rizzler extends Bot {
                 reverseDirection();
             }
 
-            if (getEnemyCount() == 1) {
-                setState(new RamState(this));
-            }
-
             go();
         }
     }
