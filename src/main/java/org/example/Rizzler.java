@@ -2,8 +2,10 @@ package org.example;
 
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.example.*;
 
 // ------------------------------------------------------------------
 // Rizzler
@@ -46,6 +48,10 @@ public class Rizzler extends Bot {
         state.onRun();
         while (isRunning()) {
             state.whileRunning();
+
+            if (getEnemyCount() == 1) {
+                setState(new RamState(this));
+            }
 
             go();
         }
