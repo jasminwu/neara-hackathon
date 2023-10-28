@@ -2,8 +2,8 @@ package org.example;
 
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.example.*;
 
