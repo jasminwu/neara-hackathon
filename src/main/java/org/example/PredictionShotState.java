@@ -34,15 +34,19 @@ public class PredictionShotState extends State {
 
     public PredictionShotState(Rizzler context) {
         super(context);
+        System.out.println("Constructing state");
 
         // MORE CONSTANTS
-        FALLBACK_STATE = new CrazyState(context);
+        scan = new ScannedBotEvent(0, 0, 0, 0, 0, 0, 0, 0);
+        FALLBACK_STATE = this;
     }
     
     // STATE INTERFACE
 
     @Override
     public void whileRunning() {
+        System.out.print("rizzing rn");
+        
         if (aiming && context.getTurnNumber() - scan.getTurnNumber() >= GUN_TURN_TURNS) {
             context.fire(firepower);
             context.setTurnGunLeft(0);
@@ -51,14 +55,17 @@ public class PredictionShotState extends State {
 
         if (!aiming && context.getTurnNumber() - scan.getTurnNumber() >= TIME_BEFORE_FALLBACK) {
             context.setState(FALLBACK_STATE);
+            System.out.println("Fallback state used due to no rizz");
         }
-
+        
         // In your implementation
+        context.rescan();
         // make sure to call super.whileRunning()
     }
     
     @Override
     public void onScannedBot(ScannedBotEvent e) {
+        System.out.println("A bot has been scanned");
         if (aiming) {
             return;
         }
@@ -71,6 +78,7 @@ public class PredictionShotState extends State {
         double confidence = predictionConfidence();
         if (confidence < LINEARITY_THRESHOLD) {
             context.setState(FALLBACK_STATE);
+            System.out.println("Fallback state used due to no confidence");
         }
 
         // FIREPOWER SHOULD GO UP WITH CONFIDENCE
@@ -88,14 +96,14 @@ public class PredictionShotState extends State {
         // the total angle that the gun must point to
         double aimAngle = calcPredictGunAngle(disp, vel);
         // split into an angle for tank and an angle for the gun
-        double tankTurnAngle = aimAngle * (1 - GUN_TANK_TURN_RATE_RATIO);
-        double gunTurnAngle = aimAngle * (GUN_TANK_TURN_RATE_RATIO);
+        double tankTurnAngle = aimAngle * (1 - (GUN_TANK_TURN_RATE_RATIO/(1 + GUN_TANK_TURN_RATE_RATIO)));
+        double gunTurnAngle = aimAngle * (GUN_TANK_TURN_RATE_RATIO/(1 + GUN_TANK_TURN_RATE_RATIO));
 
-        // FIND IDEAL RADAR ANGLE // PREDICT WHERE GUY WILL BE IN 1 TURNS
+        // FIND IDEAL RADAR ANGLE // PREDICT WHERE GUY WILL BE IN 3 TURNS
         double radarAngle = calcPredictRadarAngle(disp, vel, aimAngle);
 
         // PUSH THESE INSTRUCTIONS
-        context.setForward(0);
+        context.stop();
         context.setTurnLeft(tankTurnAngle);
         context.setTurnGunLeft(gunTurnAngle);
         context.setTurnRadarLeft(radarAngle);
@@ -180,11 +188,43 @@ public class PredictionShotState extends State {
             relDirection -= 180;
         }
 
+        System.out.println("Gun Turn");
+        System.out.println(relDirection);
         return relDirection;
     }
 
     public double calcPredictRadarAngle(Vector2D disp, Vector2D vel, double aimAngle) {
-        // TODO: implement
-        return 10;
+        boolean anticlockwise = Vector2D.crossProdIsOutwards(disp, vel);
+
+        // DETERMINE RADIAL AND TANGENTIAL COMPONENTS
+        double radialVel = Vector2D.dot(vel, disp) / disp.magnitude();
+        double tangVel = Math.sqrt(Math.pow(vel.magnitude(), 2) - Math.pow(radialVel, 2));
+
+        System.out.println("TANGEVELRADIALVEL");
+        System.out.println(tangVel);
+
+        // used weird approximation
+        // ignored radial motion of the bot
+        double theta = tangVel * 1 / disp.magnitude();
+        if (!anticlockwise) {
+            theta = -theta;
+        }
+
+        // now theta is the angle relative to the displacement vector
+        // find absolute angle
+        double absDirection = disp.direction() + theta;
+        double radarDirection = context.getRadarDirection();
+        double relDirection = absDirection - radarDirection;
+
+        // HOWEVER WE MUST ACCOUNT FOR THE TURNING OF THE GUN
+        relDirection -= aimAngle;
+
+        // now shift it so that it is between -180 and 180
+        if (relDirection > 180) {
+            relDirection -= 180;
+        }
+        System.out.println("Radar Turn");
+        System.out.println(relDirection);
+        return relDirection;
     }
 }

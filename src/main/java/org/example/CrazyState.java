@@ -41,7 +41,7 @@ public class CrazyState extends State {
     @Override
     public void onScannedBot(ScannedBotEvent e) {
         context.fire(1);
-        context.setState(new Exp1State(context));
+        context.setState(new PredictionShotState(context));
     }
 
     @Override
