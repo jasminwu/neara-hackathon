@@ -5,8 +5,6 @@ different attack and defence techniques at runtime.
 
 It also has everything necessary to run as a host for a Robocode Tank Royale competition. So other bots can be packaged and dropped into the `bots` folder and it'll be picked up.
 
-## Attack and Defence Techniques
-(TODO)
 
 ## Default competition rules
 - Game type: Classic
