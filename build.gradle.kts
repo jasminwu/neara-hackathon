@@ -10,7 +10,7 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass.set("org.example.BTreeBotKt")
+    mainClass.set("org.example.RizzlerKt")
 }
 
 repositories {
@@ -29,21 +29,21 @@ tasks.test {
 }
 
 tasks.withType<ShadowJar> {
-    archiveFileName.set("BTreeBot.jar")
+    archiveFileName.set("Rizzler.jar")
 
     doLast {
         copy {
-            from("src/main/kotlin/org/example/BTreeBot.json")
-            from("$buildDir/libs/BTreeBot.jar")
-            into("BTreeBot")
+            from("src/main/kotlin/org/example/Rizzler.json")
+            from("$buildDir/libs/Rizzler.jar")
+            into("Rizzler")
         }
     }
 
 }
 
 tasks.clean {
-    delete ("BTreeBot/BTreeBot.json")
-    delete ("BTreeBot/BTreeBot.jar")
+    delete ("Rizzler/Rizzler.json")
+    delete ("Rizzler/Rizzler.jar")
 }
 
 kotlin {
