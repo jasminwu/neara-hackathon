@@ -14,8 +14,8 @@ import org.example.*;
 // ------------------------------------------------------------------
 public class Rizzler extends Bot {
 
-    private State state;
-    private List<ScannedBotEvent> scans;
+    public State state;
+    public List<ScannedBotEvent> scans;
 
     public boolean movingForward;
 
@@ -28,7 +28,6 @@ public class Rizzler extends Bot {
     public Rizzler() {
         super(BotInfo.fromFile("Rizzler.json"));
         // TODO: DEFAULT STATEs
-        this.state = new CrazyState(this);
         this.scans = new ArrayList<ScannedBotEvent>();
     }
 
@@ -42,7 +41,7 @@ public class Rizzler extends Bot {
         setScanColor(Color.fromString("#FFC8C8")); // light red
 
         // TODO: DEFAULT STATE
-        setState(new PredictionShotState(this));
+        setState(new RandomState(this));
 
         // Loop while as long as the bot is running
         state.onRun();

@@ -3,6 +3,9 @@ package org.example;
 import dev.robocode.tankroyale.botapi.events.*;
 
 import java.util.stream.Collectors;
+
+import javax.naming.Context;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math;
@@ -17,11 +20,11 @@ public class PredictionShotState extends State {
     private static int RADAR_TURN_TURNS = 1;
     // because gun turns twice as fast as tank
     private static double GUN_TANK_TURN_RATE_RATIO = 2;
-    private static double LINEARITY_THRESHOLD = 0.55;
+    private static double LINEARITY_THRESHOLD = 0.1;
     private static double CONSECUTIVE_TURNS = 10; 
     private static double MAX_FIREPOWER = 2.5; // MAX 3
     private static double COCKINESS = 0.5;
-    private static double TIME_BEFORE_FALLBACK = 10;
+    private static double TIME_BEFORE_FALLBACK = 14;
 
     // MORE CONSTANTS KINDA
     private State FALLBACK_STATE; // check definition in constructor
@@ -38,7 +41,6 @@ public class PredictionShotState extends State {
 
         // MORE CONSTANTS
         scan = new ScannedBotEvent(0, 0, 0, 0, 0, 0, 0, 0);
-        FALLBACK_STATE = this;
     }
 
     // STATE INTERFACE
@@ -52,7 +54,7 @@ public class PredictionShotState extends State {
         }
 
         if (!aiming && context.getTurnNumber() - scan.getTurnNumber() >= TIME_BEFORE_FALLBACK) {
-            context.setState(FALLBACK_STATE);
+            context.setState(new RandomState(context));
             System.out.println("Fallback state used due to no rizz");
         }
         
@@ -77,7 +79,7 @@ public class PredictionShotState extends State {
         //double confidence = predictionConfidence();
         double confidence = 0.3; // WHO CARES ABOUT CONFIDENCE
         if (confidence < LINEARITY_THRESHOLD) {
-            context.setState(FALLBACK_STATE);
+            context.setState(new RandomState(context));
             System.out.println("Fallback state used due to no confidence");
         }
 
@@ -105,6 +107,7 @@ public class PredictionShotState extends State {
 
         // PUSH THESE INSTRUCTIONS
         context.stop();
+        context.setForward(0);
         //context.setTurnLeft(tankTurnAngle);
         //context.setTurnGunLeft(gunTurnAngle);
         //context.setTurnRadarLeft(radarAngle);

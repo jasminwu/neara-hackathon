@@ -52,22 +52,33 @@ public class RandomState extends State {
     // We scanned another bot -> fire!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
-        context.fire(2);
-        if (Math.abs(context.getDirection() - context.getRadarDirection()) < 90) {
-            // Radar is approximately in the same direction as the bot's movement
-            // Check if the rammed bot is ahead or behind radar
-            context.reverseDirection();
+        
+        Vector2D pos = new Vector2D(e.getX(), e.getY());
+        Vector2D ori = new Vector2D(context.getX(), context.getY());
+        double dist = pos.subtract(ori).magnitude();
+        
+        if (dist > 150) {
+            context.setState(new PredictionShotState(context));
+            context.state.onScannedBot(e);
         } else {
-            // Radar and Movement direction are opposite directions
-            // Consider setting direction such that it is accelerating/decelerating/rotating
-            // so predicting is easier
-            context.setTurnRate(10);
-            context.setTurnRight(400);
-            context.setForward(4000);
+            context.fire(2);
+            if (Math.abs(context.getDirection() - context.getRadarDirection()) < 90) {
+                // Radar is approximately in the same direction as the bot's movement
+                // Check if the rammed bot is ahead or behind radar
+                context.reverseDirection();
+            } else {
+                // Radar and Movement direction are opposite directions
+                // Consider setting direction such that it is accelerating/decelerating/rotating
+                // so predicting is easier
+                context.setTurnRate(10);
+                context.setTurnRight(400);
+                context.setForward(4000);
+            }
+            if (peek) {
+                context.rescan();
+            }
         }
-        if (peek) {
-            context.rescan();
-        }
+
     }
 
     // Condition that is triggered when the turning is complete
