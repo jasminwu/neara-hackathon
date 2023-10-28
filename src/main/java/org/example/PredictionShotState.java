@@ -35,7 +35,6 @@ public class PredictionShotState extends State {
 
     public PredictionShotState(Rizzler context) {
         super(context);
-        System.out.println("Constructing state");
 
         // MORE CONSTANTS
         scan = new ScannedBotEvent(0, 0, 0, 0, 0, 0, 0, 0);
@@ -46,8 +45,6 @@ public class PredictionShotState extends State {
 
     @Override
     public void whileRunning() {
-        System.out.print("rizzing rn");
-        
         if (aiming && context.getTurnNumber() - scan.getTurnNumber() >= GUN_TURN_TURNS) {
             context.fire(firepower);
             context.setTurnGunLeft(0);
@@ -60,23 +57,25 @@ public class PredictionShotState extends State {
         }
         
         // In your implementation
-        context.rescan();
         // make sure to call super.whileRunning()
+        context.rescan();
     }
     
     @Override
     public void onScannedBot(ScannedBotEvent e) {
+        // Initialise
+        context.addScan(e);
+        scan = e;
+
         System.out.println("A bot has been scanned");
         if (aiming) {
             return;
         }
 
-        // Initialise
-        context.addScan(e);
-        scan = e;
         
         // Switch to another state if bot is too unpredictable
-        double confidence = predictionConfidence();
+        //double confidence = predictionConfidence();
+        double confidence = 0.3; // WHO CARES ABOUT CONFIDENCE
         if (confidence < LINEARITY_THRESHOLD) {
             context.setState(FALLBACK_STATE);
             System.out.println("Fallback state used due to no confidence");
@@ -106,14 +105,16 @@ public class PredictionShotState extends State {
 
         // PUSH THESE INSTRUCTIONS
         context.stop();
-        context.setTurnLeft(tankTurnAngle);
-        context.setTurnGunLeft(gunTurnAngle);
-        context.setTurnRadarLeft(radarAngle);
+        //context.setTurnLeft(tankTurnAngle);
+        //context.setTurnGunLeft(gunTurnAngle);
+        //context.setTurnRadarLeft(radarAngle);
+        context.setTurnGunLeft(aimAngle);
     }
 
     // Utility classes
 
     // On a scale of 0 to 1, how confident are we that the bot is moving in a straight line
+    @Deprecated
     public double predictionConfidence() {
         List<ScannedBotEvent> scans = context.getScans();
         List<ScannedBotEvent> relevantScans = scans.stream().filter(x -> x.getScannedBotId() == scan.getScannedBotId()).collect(Collectors.toList());
@@ -164,6 +165,8 @@ public class PredictionShotState extends State {
     // predict the angle at which you must fire
     public double calcPredictGunAngle(Vector2D disp, Vector2D vel) {
         boolean anticlockwise = Vector2D.crossProdIsOutwards(disp, vel);
+        System.out.println("Anticlockwise");
+        System.out.println(anticlockwise);
 
         // DETERMINE RADIAL AND TANGENTIAL COMPONENTS
         double radialVel = Vector2D.dot(vel, disp) / disp.magnitude();
@@ -195,15 +198,13 @@ public class PredictionShotState extends State {
         return relDirection;
     }
 
+    @Deprecated
     public double calcPredictRadarAngle(Vector2D disp, Vector2D vel, double aimAngle) {
         boolean anticlockwise = Vector2D.crossProdIsOutwards(disp, vel);
 
         // DETERMINE RADIAL AND TANGENTIAL COMPONENTS
         double radialVel = Vector2D.dot(vel, disp) / disp.magnitude();
         double tangVel = Math.sqrt(Math.pow(vel.magnitude(), 2) - Math.pow(radialVel, 2));
-
-        System.out.println("TANGEVELRADIALVEL");
-        System.out.println(tangVel);
 
         // used weird approximation
         // ignored radial motion of the bot
@@ -224,9 +225,11 @@ public class PredictionShotState extends State {
         // now shift it so that it is between -180 and 180
         if (relDirection > 180) {
             relDirection -= 180;
+        } else if (relDirection < -180) {
+            relDirection += 180;
         }
         System.out.println("Radar Turn");
         System.out.println(relDirection);
-        return relDirection;
+        return 0;
     }
 }

@@ -45,7 +45,6 @@ public class Rizzler extends Bot {
         // Loop while as long as the bot is running
         state.onRun();
         while (isRunning()) {
-            System.out.println(state);
             state.whileRunning();
 
             go();
