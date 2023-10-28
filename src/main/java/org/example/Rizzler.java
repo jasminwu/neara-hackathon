@@ -40,11 +40,12 @@ public class Rizzler extends Bot {
         setScanColor(Color.fromString("#FFC8C8")); // light red
 
         // TODO: DEFAULT STATE
-        setState(new CrazyState(this));
+        setState(new PredictionShotState(this));
 
         // Loop while as long as the bot is running
         state.onRun();
         while (isRunning()) {
+            System.out.println(state);
             state.whileRunning();
 
             go();
@@ -56,28 +57,33 @@ public class Rizzler extends Bot {
     // We collided with a wall -> reverse the direction
     @Override
     public void onHitWall(HitWallEvent e) {
+        System.out.println("Hit a Wall");
         state.onHitWall(e);
     }
 
     // We scanned another bot -> fire!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
+        System.out.println("I see you");
         state.onScannedBot(e);
     }
 
     // We hit another bot -> back up!
     @Override
     public void onHitBot(HitBotEvent e) {
+        System.out.println("Hit bot");
         state.onHitBot(e);
     }
 
     @Override
     public void onBulletFired(BulletFiredEvent e) {
+        System.out.println("Bang!");
         state.onBulletFired(e);
     }
 
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
+        System.out.println("Ouch!");
         state.onHitByBullet(e);
     }
 
