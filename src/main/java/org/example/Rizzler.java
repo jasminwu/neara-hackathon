@@ -5,8 +5,6 @@ import dev.robocode.tankroyale.botapi.events.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.example.*;
-
 // ------------------------------------------------------------------
 // Rizzler
 // ------------------------------------------------------------------
