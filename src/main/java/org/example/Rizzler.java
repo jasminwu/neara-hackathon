@@ -2,8 +2,8 @@ package org.example;
 
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 // ------------------------------------------------------------------
 // Rizzler
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 // ------------------------------------------------------------------
 public class Rizzler extends Bot {
 
-    private State state;
-    private List<ScannedBotEvent> scans;
+    public State state;
+    public List<ScannedBotEvent> scans;
 
     public boolean movingForward;
 
@@ -26,7 +26,6 @@ public class Rizzler extends Bot {
     public Rizzler() {
         super(BotInfo.fromFile("Rizzler.json"));
         // TODO: DEFAULT STATEs
-        this.state = new CrazyState(this);
         this.scans = new ArrayList<ScannedBotEvent>();
     }
 
@@ -40,12 +39,20 @@ public class Rizzler extends Bot {
         setScanColor(Color.fromString("#FFC8C8")); // light red
 
         // TODO: DEFAULT STATE
-        setState(new CrazyState(this));
+        setState(new RandomState(this));
 
         // Loop while as long as the bot is running
         state.onRun();
         while (isRunning()) {
             state.whileRunning();
+
+            if (state.willCollide()) {
+                reverseDirection();
+            }
+
+            if (getEnemyCount() == 1) {
+                setState(new RamState(this));
+            }
 
             go();
         }
@@ -56,28 +63,33 @@ public class Rizzler extends Bot {
     // We collided with a wall -> reverse the direction
     @Override
     public void onHitWall(HitWallEvent e) {
+        System.out.println("Hit a Wall");
         state.onHitWall(e);
     }
 
     // We scanned another bot -> fire!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
+        System.out.println("I see you");
         state.onScannedBot(e);
     }
 
     // We hit another bot -> back up!
     @Override
     public void onHitBot(HitBotEvent e) {
+        System.out.println("Hit bot");
         state.onHitBot(e);
     }
 
     @Override
     public void onBulletFired(BulletFiredEvent e) {
+        System.out.println("Bang!");
         state.onBulletFired(e);
     }
 
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
+        System.out.println("Ouch!");
         state.onHitByBullet(e);
     }
 

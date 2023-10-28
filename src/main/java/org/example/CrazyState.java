@@ -17,19 +17,13 @@ public class CrazyState extends State {
         context.movingForward = true;
 
         context.setTurnRight(90);
-        if (willCollide()) {
-            context.setTurnRight(180);
-        }
+
         context.waitFor(new TurnCompleteCondition(context));
         context.setTurnLeft(180);
-        if (willCollide()) {
-            context.setTurnRight(180);
-        }
+
         context.waitFor(new TurnCompleteCondition(context));
         context.setTurnRight(180);
-        if (willCollide()) {
-            context.setTurnRight(180);
-        }
+
         context.waitFor(new TurnCompleteCondition(context));
         // then back to the top to do it all again.
 
@@ -38,7 +32,7 @@ public class CrazyState extends State {
     @Override
     public void onScannedBot(ScannedBotEvent e) {
         context.fire(1);
-        context.setState(new Exp1State(context));
+        context.setState(new PredictionShotState(context));
     }
 
     @Override
