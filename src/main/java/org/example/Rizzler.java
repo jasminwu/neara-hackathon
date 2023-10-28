@@ -50,7 +50,7 @@ public class Rizzler extends Bot {
             System.out.println(state);
             state.whileRunning();
 
-            if (scans.size() == 1) {
+            if (getEnemyCount() == 1) {
                 setState(new RamState(this));
             }
 
