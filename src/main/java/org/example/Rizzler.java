@@ -26,7 +26,7 @@ public class Rizzler extends Bot {
     public Rizzler() {
         super(BotInfo.fromFile("Rizzler.json"));
         // TODO: DEFAULT STATEs
-        this.state = new CrazyState(this);
+        this.state = new CornerDefenseState(this);
         this.scans = new ArrayList<ScannedBotEvent>();
     }
 
@@ -40,7 +40,7 @@ public class Rizzler extends Bot {
         setScanColor(Color.fromString("#FFC8C8")); // light red
 
         // TODO: DEFAULT STATE
-        setState(new CrazyState(this));
+        setState(new CornerDefenseState(this));
 
         // Loop while as long as the bot is running
         state.onRun();
