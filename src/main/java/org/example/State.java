@@ -3,7 +3,7 @@ package org.example;
 import dev.robocode.tankroyale.botapi.events.*;
 
 public abstract class State {
-    private static final int OFFSET = 18;
+    private static final int OFFSET = 60;
 
     // State implementations should also store a reference to the context
     protected Rizzler context;
