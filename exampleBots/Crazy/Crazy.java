@@ -26,11 +26,11 @@ public class Crazy extends Bot {
     // Called when a new round is started -> initialize and do some movement
     public void run() {
         // Set colors
-        setBodyColor(Color.fromString("#00C800"));   // lime
+        setBodyColor(Color.fromString("#00C800")); // lime
         setTurretColor(Color.fromString("#009632")); // green
-        setRadarColor(Color.fromString("#006464"));  // dark cyan
+        setRadarColor(Color.fromString("#006464")); // dark cyan
         setBulletColor(Color.fromString("#FFFF64")); // yellow
-        setScanColor(Color.fromString("#FFC8C8"));   // light red
+        setScanColor(Color.fromString("#FFC8C8")); // light red
 
         // Loop while as long as the bot is running
         while (isRunning()) {
@@ -42,7 +42,8 @@ public class Crazy extends Bot {
             // At this point, we have indicated to the game that *when we do something*,
             // we will want to move ahead and turn right. That's what "set" means.
             // It is important to realize we have not done anything yet!
-            // In order to actually move, we'll want to call a method that takes real time, such as
+            // In order to actually move, we'll want to call a method that takes real time,
+            // such as
             // waitFor.
             // waitFor actually starts the action -- we start moving and turning.
             // It will not return until we have finished turning.

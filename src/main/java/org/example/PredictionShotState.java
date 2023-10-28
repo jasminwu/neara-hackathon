@@ -1,6 +1,7 @@
 package org.example;
 
 import dev.robocode.tankroyale.botapi.events.*;
+
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class PredictionShotState extends State {
         scan = new ScannedBotEvent(0, 0, 0, 0, 0, 0, 0, 0);
         FALLBACK_STATE = this;
     }
-    
+
     // STATE INTERFACE
 
     @Override
@@ -80,6 +81,7 @@ public class PredictionShotState extends State {
             context.setState(FALLBACK_STATE);
             System.out.println("Fallback state used due to no confidence");
         }
+
 
         // FIREPOWER SHOULD GO UP WITH CONFIDENCE
         firepower = confidence * MAX_FIREPOWER;
