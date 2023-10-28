@@ -48,6 +48,10 @@ public class Rizzler extends Bot {
             System.out.println(state);
             state.whileRunning();
 
+            if (state.willCollide()) {
+                reverseDirection();
+            }
+
             if (getEnemyCount() == 1) {
                 setState(new RamState(this));
             }
